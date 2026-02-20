@@ -8,9 +8,21 @@ let btn= document.querySelector("#submit");
 
 let transactions =[]
 function totalUpdate(){
-     const totalnumber = transactions.map(transaction.Number);
-     
+     const onlyNumber = transactions.map(t => t.Number);
+     const positiveNumber=onlyNumber.filter(num => num > 0)
+     const negitiveNumber=onlyNumber.filter(num => num < 0) 
+     const addNumber = positiveNumber.reduce( (tadd,add) => tadd +add, 0 )  
+     // const ftotal =  positiveNumber.toFixed(2);
+     const exNumber = negitiveNumber.reduce( (taddd,addd) => taddd - addd, 0 )  ;
+     const lastNumber = addNumber-exNumber;
+totalIncome.textContent = `$${addNumber}`;
+totalExpanse.textContent= `$${exNumber}`;
+totalBalance.textContent= `$${addNumber}`;
+totalBalance.textContent= `$${lastNumber}`;
 }
+
+
+
 btn.addEventListener("click", function(dets){
      dets.preventDefault();
      if ( formText.value.trim() === "" || +(formNumber.value).trim() === ""){
@@ -24,11 +36,10 @@ btn.addEventListener("click", function(dets){
      }
 
 transactions.push(transaction);
-
-totalIncome=
 formText.value = "";   // Text field saaf
 formNumber.value = ""; // Number field saaf
 console.log(transactions)
+totalUpdate()
 
 })
 
