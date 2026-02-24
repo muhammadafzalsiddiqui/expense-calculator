@@ -1,7 +1,8 @@
+
 let totalBalance= document.querySelector("#tb");
 let totalIncome= document.querySelector("#ti");
 let totalExpanse= document.querySelector("#te");
-let transactionHistory= document.querySelector("#item");
+let transactionHistory= document.querySelector("#list");
 let formText= document.querySelector("#form-text");
 let formNumber= document.querySelector("#form-number");
 let btn= document.querySelector("#submit");
@@ -20,7 +21,23 @@ totalExpanse.textContent= `$${exNumber}`;
 totalBalance.textContent= `$${addNumber}`;
 totalBalance.textContent= `$${lastNumber}`;
 }
+function render(){
+    transactionHistory.innerHTML = ""
+    transactions.forEach((t)=>{
+        const item = document.createElement("li")
+        const type = t.Number < 0 ? 'minus' : 'plus';
+        item.classList.add(type);
+        const sign = t.Number < 0 ? '-' : '+'; // Faisla ke sign kya dikhana hai
 
+item.innerHTML = `
+    ${t.text} <span>${sign}${Math.abs(t.Number)}</span>
+    <button class="delete-btn">x</button>
+`;
+transactionHistory.appendChild(item);
+
+        
+    })
+}
 
 
 btn.addEventListener("click", function(dets){
@@ -35,11 +52,15 @@ btn.addEventListener("click", function(dets){
           Number:+(formNumber.value),
      }
 
+      
+
 transactions.push(transaction);
 formText.value = "";   // Text field saaf
 formNumber.value = ""; // Number field saaf
-console.log(transactions)
+// console.log(transactions)
 totalUpdate()
+render()
+
 
 })
 
